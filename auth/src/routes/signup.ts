@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator'
 
 import { User } from '../models'
 
-import { RequestValidationError } from '../errors'
+import { BadRequestError, RequestValidationError } from '../errors'
 
 const router = express.Router()
 
@@ -27,8 +27,7 @@ router.post(
 		const existingUser = await User.findOne({ email })
 
 		if (existingUser) {
-			console.log('Email in use')
-			return res.send({})
+			throw new BadRequestError('Email in use') // in PROD send another message
 		}
 
 		const user = User.build({ email, password })
