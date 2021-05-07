@@ -46,3 +46,21 @@ it('Should await a 400 on with missing email or password', async () => {
 		.send({ password: 'password' })
 		.expect(400)
 })
+
+it('Should disallow duplicate emails', async () => {
+	await request(app)
+		.post('/api/users/signup')
+		.send({
+			email: 'test@test.com',
+			password: 'password',
+		})
+		.expect(201)
+
+	await request(app)
+		.post('/api/users/signup')
+		.send({
+			email: 'test@test.com',
+			password: 'password',
+		})
+		.expect(400)
+})

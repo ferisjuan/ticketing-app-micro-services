@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { body } from 'express-validator'
 import jwt from 'jsonwebtoken'
-import { BadRequestError } from '../errors'
+import { BadRequestError, RequestValidationError } from '../errors'
 import { ValidateRequest } from '../middlewares'
 import { User } from '../models'
 
@@ -22,7 +22,9 @@ router.post(
 		const existingUser = await User.findOne({ email })
 
 		if (existingUser) {
-			throw new BadRequestError('Email in use') // in PROD send another message
+			throw new RequestValidationError([
+				{ msg: 'Email in use', param: '', location: 'body', value: '' },
+			]) // in PROD send another message
 		}
 
 		const user = User.build({ email, password })
