@@ -13,13 +13,7 @@ it('I should sign in ', async () => {
 })
 
 it('Should fail when an incorrect password is suplied', async () => {
-	await request(app)
-		.post('/api/users/signup')
-		.send({
-			email: 'test@test.com',
-			password: 'password',
-		})
-		.expect(201)
+	await global.signin()
 
 	await request(app)
 		.post('/api/users/signin')
@@ -31,13 +25,7 @@ it('Should fail when an incorrect password is suplied', async () => {
 })
 
 it('Should respond with a cookie when given valid credentials', async () => {
-	await request(app)
-		.post('/api/users/signup')
-		.send({
-			email: 'test@test.com',
-			password: 'password',
-		})
-		.expect(201)
+	await global.signin()
 
 	const response = await request(app)
 		.post('/api/users/signin')

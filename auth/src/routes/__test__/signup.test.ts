@@ -2,13 +2,7 @@ import request from 'supertest'
 import { app } from '../../app'
 
 it('Should await a 201 on successful signup', async () => {
-	await request(app)
-		.post('/api/users/signup')
-		.send({
-			email: 'test@test.com',
-			password: 'password',
-		})
-		.expect(201)
+	await global.signin()
 })
 
 it('Should await a 400 on invalid email', async () => {
@@ -48,13 +42,7 @@ it('Should await a 400 on with missing email or password', async () => {
 })
 
 it('Should disallow duplicate emails', async () => {
-	await request(app)
-		.post('/api/users/signup')
-		.send({
-			email: 'test@test.com',
-			password: 'password',
-		})
-		.expect(201)
+	await global.signin()
 
 	await request(app)
 		.post('/api/users/signup')
