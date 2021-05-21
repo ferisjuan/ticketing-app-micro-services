@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default ({ req }) => {
+const buildClient = ({ req }) => {
 	const configCreate =
 		typeof window === 'undefined'
 			? {
@@ -16,3 +16,5 @@ export default ({ req }) => {
 
 	return axios.create(configCreate)
 }
+
+export default buildClient
