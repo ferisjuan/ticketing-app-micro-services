@@ -1,11 +1,9 @@
 import express, { Request, Response } from 'express'
+
+import { BadRequestError, ValidateRequest } from '@jferistickets/common'
 import { body } from 'express-validator'
 import jwt from 'jsonwebtoken'
-
-import { ValidateRequest } from '../middlewares'
-import { BadRequestError } from '../errors'
-
-import { User } from '../models'
+import { User } from '../models/User'
 import { PasswordManager } from '../services'
 
 const router = express.Router()
