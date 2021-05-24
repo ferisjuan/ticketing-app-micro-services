@@ -1,10 +1,11 @@
 import express from 'express'
 import 'express-async-errors'
 
-import { NotFoundError } from '@jferistickets/common'
+import { currentUser, NotFoundError } from '@jferistickets/common'
 import { errorHandler } from '@jferistickets/common'
 
 import cookieSession from 'cookie-session'
+import { createTicketRouter } from './routes/new'
 
 const app = express()
 
@@ -17,6 +18,10 @@ app.use(
 		secure: process.env.NODE_ENV !== 'test',
 	})
 )
+app.use(currentUser)
+
+// Routes
+app.use(createTicketRouter)
 
 app.all('*', async () => {
 	throw new NotFoundError()
