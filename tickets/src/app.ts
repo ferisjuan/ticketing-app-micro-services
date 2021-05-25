@@ -7,6 +7,7 @@ import { errorHandler } from '@jferistickets/common'
 import cookieSession from 'cookie-session'
 import { createTicketRouter } from './routes/new'
 import { showTicketsRouter } from './routes/show'
+import { indexTicketRouter } from './routes'
 
 const app = express()
 
@@ -24,6 +25,7 @@ app.use(currentUser)
 // Routes
 app.use(createTicketRouter)
 app.use(showTicketsRouter)
+app.use(indexTicketRouter)
 
 app.all('*', async () => {
 	throw new NotFoundError()
