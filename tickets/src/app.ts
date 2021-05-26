@@ -8,6 +8,7 @@ import cookieSession from 'cookie-session'
 import { createTicketRouter } from './routes/new'
 import { showTicketsRouter } from './routes/show'
 import { indexTicketRouter } from './routes'
+import { updateTicketsRouter } from './routes/update'
 
 const app = express()
 
@@ -24,8 +25,9 @@ app.use(currentUser)
 
 // Routes
 app.use(createTicketRouter)
-app.use(showTicketsRouter)
 app.use(indexTicketRouter)
+app.use(showTicketsRouter)
+app.use(updateTicketsRouter)
 
 app.all('*', async () => {
 	throw new NotFoundError()
